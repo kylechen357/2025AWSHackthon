@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不銹鋼國際規範AI助理 - 華新麗華</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background-color: #f8f9fa;
+            transition: background-color 0.5s ease; /* 添加過渡效果 */
+        }
+        /* 專業度特定樣式 */
+        body.expertise-beginner {
+            background-color: #edede9 !important;
+        }
+        body.expertise-intermediate {
+            background-color: #f5ebe0 !important;
+        }
+        body.expertise-expert {
+            background-color: #d5bdaf !important;
+        }
+        .chat-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 20px;
+            height: calc(100vh - 10px);
+            display: flex;
+            flex-direction: column;
+        }
+        .brand-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0056b3;
+        }
+        .chat-box {
+            flex-grow: 1;
+            overflow-y: auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        .user-message {
+            background-color: #e9f5ff;
+            align-self: flex-end;
+            margin-left: auto;
+            text-align: right;
+            width: fit-content;
+        }
+        .assistant-message {
+            background-color: #f0f0f0;
+            align-self: flex-start;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        .message-input {
+            border-radius: 8px !important;
+            padding: 12px !important;
+        }
+        .send-button {
+            min-height: 50px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #0056b3;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 10px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .file-input-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .file-input-container .input-group {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .file-input-container input[type="file"] {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+        }
+
+        .file-input-container .btn-outline-secondary {
+            border: none;
+            border-left: 1px solid #ccc;
+            border-radius: 0 8px 8px 0;
+            padding: 0.5rem 1rem;
+        }
+
+        .uploaded-file {
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 0.9em;
+        }
+        .web-search-indicator {
+            font-size: 0.8em;
+            color: #0056b3;
+            margin-top: 5px;
+            display: none;
+        
+        }
+        .message.loading {
+            color: gray;
+            font-style: italic;
+            opacity: 0.7;
+        }
+        /* 狀態指示器 */
+        .expertise-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            background-color: rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- 添加專業度指示器 -->
+    <div class="expertise-indicator" id="expertiseIndicator">專業度: 初學者</div>
+
+    <div class="chat-container">
+        <div class="brand-header">
+            <h1><i class="fas fa-robot"></i> 不銹鋼國際規範AI助理</h1>
+            <p>華新麗華專業智能助手</p>
+        </div>
+        
+        <div class="chat-box" id="chatBox">
+            <div class="message assistant-message">
+                您好！我是不銹鋼國際規範AI助理，可以協助您解答關於不銹鋼規範標準的問題，包括ASTM、JIS、EN等規範中的鋼種成分、機械性質和產品適用範圍等內容。您可以上傳相關文件或直接提問，需要什麼幫助呢？
+            </div>
+        </div>
+        
+        <div class="file-input-container">
+            <div class="input-group">
+                <input type="file" class="form-control" id="fileInput" accept=".pdf,.xlsx,.docx,.jpg,.jpeg,.png,.csv">
+                <button class="btn btn-outline-secondary" type="button" id="clearFileBtn">清除</button>
+            </div>
+            <div class="uploaded-file" id="uploadedFileInfo"></div>
+        </div>
+        
+        <div class="input-group">
+            <textarea class="form-control message-input" id="messageInput" placeholder="請輸入您的問題..." rows="2"></textarea>
+            <button class="btn send-button" type="button" id="sendButton">
+                <i class="fas fa-paper-plane"></i> 發送
+            </button>
+        </div>
+        <div class="loader" id="loader"></div>
+        <div class="web-search-indicator" id="webSearchIndicator">
+            <i class="fas fa-search"></i> 已使用網絡搜索獲取最新資訊
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between mt-2">
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@5.1.1/marked.min.js"></script>
+    <script>
+        // Configure marked to avoid deprecation warnings
+        marked.use({
+            mangle: false,
+            headerIds: false,
+            breaks: true, // Convert line breaks to <br>
+            gfm: true     // Enable GitHub Flavored Markdown
+        });
+    </script>
+    <script src="app.js"></script>
+    <script>
+        // 為測試按鈕添加額外的事件處理器
+        document.addEventListener('DOMContentLoaded', function() {
+        // 專業度指示器
+        const expertiseIndicator = document.getElementById('expertiseIndicator');
+        if (expertiseIndicator) {
+            expertiseIndicator.textContent = ''; // 設置為空字串，不顯示文字
+        }
+        
+                    // 更新設置背景顏色和指示器的函數
+                    function updateExpertiseUI(level) {
+                        // 設置背景顏色
+                        window.setBackgroundColorByExpertise(level);
+        
+                        // 更新指示器 (不再更新文字)
+                        // let displayText = '初學者';
+                        // switch(level.toLowerCase()) {
+                        //     case 'intermediate':
+                        //         displayText = '中級';
+                        //         break;
+                        //     case 'expert':
+                        //         displayText = '專家';
+                        //         break;
+                        // }
+                        // expertiseIndicator.textContent = `專業度: ${displayText}`;
+                    }
+        
+                    // 測試按鈕點擊事件
+                    document.getElementById('testBeginner').addEventListener('click', function() {
+                        updateExpertiseUI('beginner');
+                    });
+        
+                    document.getElementById('testIntermediate').addEventListener('click', function() {
+                        updateExpertiseUI('intermediate');
+                    });
+        
+                    document.getElementById('testExpert').addEventListener('click', function() {
+                        updateExpertiseUI('expert');
+                    });
+        
+                    // 監聽 body 的 data-expertise 屬性變化
+                    const observer = new MutationObserver(function(mutations) {
+                        mutations.forEach(function(mutation) {
+                            if (mutation.attributeName === 'data-expertise') {
+                                const expertiseLevel = document.body.getAttribute('data-expertise');
+                                if (expertiseLevel) {
+                                    updateExpertiseUI(expertiseLevel);
+                                }
+                            }
+                        });
+                    });
+        
+                    observer.observe(document.body, { attributes: true });
+                });
+            </script>
+</body>
+</html>
