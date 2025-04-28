@@ -2,6 +2,7 @@
 
 一個基於 AWS 的智能系統，協助華新麗華公司技術人員處理不銹鋼國際規範標準相關問題。本系統透過 AI 技術提供專業規範查詢、標準比較和文件分析服務，並根據用戶專業程度自動調整回答深度。
 
+[<img src="https://i.ytimg.com/vi/Hc79sDi3f0U/maxresdefault.jpg" width="50%">](https://www.youtube.com/watch?v=mekXN4UOLf0 "Now in Android: 55")
 
 ## 系統功能
 
