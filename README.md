@@ -1,7 +1,7 @@
 # 不銹鋼國際規範 AI 助理系統
 
 一個基於 AWS 的智能系統，協助華新麗華公司技術人員處理不銹鋼國際規範標準相關問題。本系統透過 AI 技術提供專業規範查詢、標準比較和文件分析服務，並根據用戶專業程度自動調整回答深度。
-https://raw.githubusercontent.com/kylechen357/AWSHackthon/refs/heads/main/Demo.mp4
+
 
 ## 系統功能
 
