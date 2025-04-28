@@ -2,8 +2,6 @@
 
 一個基於 AWS 的智能系統，協助華新麗華公司技術人員處理不銹鋼國際規範標準相關問題。本系統透過 AI 技術提供專業規範查詢、標準比較和文件分析服務，並根據用戶專業程度自動調整回答深度。
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/mekXN4UOLf0?si=GqlgZE7T58i9MCno" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
 ## 系統功能
 
 - **專業標準查詢**：快速查詢 ASTM、JIS、EN 等國際規範中的鋼種成分、機械性質和產品適用範圍
