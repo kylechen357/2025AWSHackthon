@@ -119,11 +119,6 @@ Lambda functions require the following environment variables:
 
 This project is for internal use by Walsin Lihwa Corporation. Unauthorized commercial use is prohibited.
 
-## Contribution and Maintenance
-
-- Project Lead: [Your Name]
-- Technical Support: [Team or individual information]
-
 ## Future Work
 
 - Expand the knowledge base to cover more international standards.
