@@ -125,3 +125,8 @@ This project is for internal use by Walsin Lihwa Corporation. Unauthorized comme
 - Implement multi-language support (English, Japanese, etc.).
 - Enhance the recognition capabilities for tables and charts.
 - Develop a dedicated mobile application.
+
+## Note
+
+This project is based on the topic of Walsin Lihwa Corporation group in 2025 AIWave: Taiwan Generative AI Applications Hackathon.
+https://www.digitimes.com.tw/seminar/generativeai_hackathon/
