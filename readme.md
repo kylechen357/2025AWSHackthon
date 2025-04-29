@@ -3,6 +3,10 @@
 
 An AWS-based intelligent system designed to assist technical personnel at Walsin Lihwa Corporation with questions related to international standards for stainless steel. The system leverages AI technologies to provide professional standard queries, standard comparisons, and document analysis services, automatically adjusting response complexity based on user expertise.
 
+
+https://github.com/user-attachments/assets/0c919aa5-f6b6-4eba-81ef-e9265f9d2345
+
+
 ## System Features
 
 - **Professional Standard Queries:** Quickly search for steel grades, compositions, mechanical properties, and application scopes in ASTM, JIS, EN, and other international standards.
